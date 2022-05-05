@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import { Command } from "commander";
-import { CreateApiCommand } from "./commands/CreateApi.command";
+import { CreateApiCommand } from "./commands/create-api.command";
 import { commands } from "./utils/decorators/ard-command.decorator";
 
 const program:Command = new Command();

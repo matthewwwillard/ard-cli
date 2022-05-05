@@ -10,15 +10,17 @@
     "postinstall": "npm run build"
   },
   "bin": {
-    "ard-cli":"./dist/main.js"
+    "ard-cli": "./dist/main.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "chalk": "^4.1.2",
+    "chalk-animation": "^2.0.2",
     "clear": "^0.1.0",
     "commander": "^9.2.0",
     "figlet": "^1.5.2",
+    "nanospinner": "^1.1.0",
     "nodegit": "^0.27.0",
     "path": "^0.12.7"
   },

@@ -1,6 +1,6 @@
 import chalk from "chalk";
 import { Command } from "commander";
-import { CommandBase } from "./command.base";
+import { COLORS, CommandBase } from "./command.base";
 import { exec } from "child_process";
 import { mkdir } from "fs/promises";
 const git = require('nodegit');
@@ -30,27 +30,28 @@ export class CreateApiCommand extends CommandBase {
         //console.log(apiName, options);
         mkdir(apiName).then(
             ()=>{
-                console.log(chalk.hex('#F28C28')(`Making dir ${apiName} and cloning API Base!`));
+                const spinner = super.getSpinner('Working...');
+                super.print(`Making dir ${apiName} and cloning API Base!`);
                 git.Clone("https://github.com/matthewwwillard/nestjs-api-base.git", './'+apiName).then(
                     (repo)=>{
-
-                        console.log(chalk.hex('#F28C28')(`Installing Node Modules in Cloned Repo!`));
+                        super.print(`Installing Node Modules!`);
+                        spinner.start();
 
                         const changeAndInstall = exec(`cd ${apiName} && npm install`);
-
-                        changeAndInstall.stdout.pipe(process.stdout);
                         changeAndInstall.on('close', (code)=>{
-                            console.log(chalk.hex('#F28C28')('All set! Have fun!'));
+                            spinner.success({text:'Done!'});
+                            super.print('All set! Have fun!');
                         });
                     }
                 ).catch(
                     (e)=>{
-                        console.error(chalk.red(e.message));
+                        spinner.error();
+                        super.print('Error: ' + e.message, COLORS.RED);
                     }
                 )
             }
         ).catch((e)=>{
-            console.log(chalk.red(e.message));
+            super.print('Error: ' + e.message, COLORS.RED);
         })
         
     }
