@@ -1,6 +1,4 @@
-export let commands:any={};
-export function ArdCommand(){
-    return (target:Function)=>{
-        commands[target.name] = target.prototype;
-    }
+export let commands: any[] = [];
+export function ArdCommand(target:any) {
+    commands.push(target); 
 }

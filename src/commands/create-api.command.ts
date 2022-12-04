@@ -3,8 +3,9 @@ import { Command } from "commander";
 import { COLORS, CommandBase } from "./command.base";
 import { exec } from "child_process";
 import { mkdir } from "fs/promises";
+import { ArdCommand } from "../utils/decorators/ard-command.decorator";
 const git = require('nodegit');
-
+@ArdCommand
 export class CreateApiCommand extends CommandBase {
 
     constructor(program:Command)

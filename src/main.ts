@@ -1,16 +1,36 @@
 #!/usr/bin/env node
 
 import { Command } from "commander";
-import { CreateApiCommand } from "./commands/create-api.command";
 import { commands } from "./utils/decorators/ard-command.decorator";
 
-const program:Command = new Command();
+import glob from 'glob';
 
-program
-    .name('ard-cli')
-    .description('A tool for a random developer');
+new Promise((resolve, reject) => {
+    glob(__dirname + '/commands/*.command.js', function (err, res) {
+        if (err) {
+            reject(err)
+        } else {
+            Promise.all(
+                res.map(file => {
+                    return import(file.replace(__dirname, '.').replace('.js', ''))
+                })
+            ).then(()=>resolve([]));
+        }
+    })
+}).then(() => {
+    const program: Command = new Command();
 
-//Import all Commands
-new CreateApiCommand(program);
+    program
+        .name('ard-cli')
+        .description('A tool for a random developer');
 
-program.parse();
+    //Import all Commands
+
+    for (let command of commands) {
+        let c = new command(program)
+    }
+
+    program.parse();
+}).catch((err)=>{
+    return 'Unable to Init!';
+})
