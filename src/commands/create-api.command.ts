@@ -31,28 +31,28 @@ export class CreateApiCommand extends CommandBase {
         //console.log(apiName, options);
         mkdir(apiName).then(
             ()=>{
-                const spinner = super.getSpinner('Working...');
-                super.print(`Making dir ${apiName} and cloning API Base!`);
+                const spinner = this.getSpinner('Working...');
+                this.print(`Making dir ${apiName} and cloning API Base!`);
                 git.Clone("https://github.com/matthewwwillard/nestjs-api-base.git", './'+apiName).then(
                     (repo)=>{
-                        super.print(`Installing Node Modules!`);
+                        this.print(`Installing Node Modules!`);
                         spinner.start();
 
                         const changeAndInstall = exec(`cd ${apiName} && npm install`);
                         changeAndInstall.on('close', (code)=>{
                             spinner.success({text:'Done!'});
-                            super.print('All set! Have fun!');
+                            this.print('All set! Have fun!');
                         });
                     }
                 ).catch(
                     (e)=>{
                         spinner.error();
-                        super.print('Error: ' + e.message, COLORS.RED);
+                        this.print('Error: ' + e.message, COLORS.RED);
                     }
                 )
             }
         ).catch((e)=>{
-            super.print('Error: ' + e.message, COLORS.RED);
+            this.print('Error: ' + e.message, COLORS.RED);
         })
         
     }

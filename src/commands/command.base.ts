@@ -1,6 +1,7 @@
 import chalk from "chalk";
 import { Command } from "commander";
 import { Spinner, createSpinner } from "nanospinner";
+import promptSync from 'prompt-sync';
 
 export enum COLORS {
     RED="#FF0000",
@@ -8,6 +9,7 @@ export enum COLORS {
 }
 export class CommandBase {
     protected program:Command;
+    protected input = promptSync({sigint:true});
 
     constructor(program:Command){
         this.program = program;

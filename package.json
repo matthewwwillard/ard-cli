@@ -1,6 +1,6 @@
 {
   "name": "ard-cli",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "A Command line tool for me!",
   "main": "main.js",
   "scripts": {
@@ -22,7 +22,8 @@
     "figlet": "^1.5.2",
     "nanospinner": "^1.1.0",
     "nodegit": "0.28.0-alpha.18",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "prompt-sync": "^4.2.0"
   },
   "devDependencies": {
     "@types/node": "18.11.10",
